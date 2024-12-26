@@ -115,11 +115,11 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
           <FormControl>
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
-                <SelectTrigger className="shad-select-trigger">
+                <SelectTrigger className="shad-select-trigger ml-4">
                   <SelectValue placeholder={props.placeholder} />
                 </SelectTrigger>
               </FormControl>
-              <SelectContent className="shad-select-content ml-4">
+              <SelectContent className="shad-select-content">
                 {props.children}
               </SelectContent>
             </Select>
