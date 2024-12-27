@@ -17,6 +17,7 @@ import { Doctors, GenderOptions, IdentificationTypes } from "@/constants"
 import { Label } from "../ui/label"
 import { SelectItem } from "../ui/select"
 import Image from "next/image"
+import FileUploader from "../FileUploader"
 
  
 
@@ -282,13 +283,39 @@ const RegisterForm = ({ user }: { user: User }) => {
             label="Scanned copy of identification document"
             renderSkeleton={(field) => (
                 <FormControl>
-                    File Upload
+                    <FileUploader files={field.value} onChange={field.onChange} />
                 </FormControl>
             )}
         />
 
         </section>
 
+        <section className="space-y-6">
+            <div className="mb-9 space-y-1">
+                <h2 className="sub-header"> Constent and Privacy</h2>
+            </div>
+
+        <CustomFormField
+            fieldType={FormFieldType.CHECKBOX}
+            control={form.control}
+            name="treatmentConsent"
+            label="I consent to treatment"
+        />
+
+        <CustomFormField
+            fieldType={FormFieldType.CHECKBOX}
+            control={form.control}
+            name="disclosureConsent"
+            label="I consent to disclosure of information"
+        />
+
+        <CustomFormField
+            fieldType={FormFieldType.CHECKBOX}
+            control={form.control}
+            name="privacyConsent"
+            label="I consent to privacy policy"
+        />
+        </section>
         <SubmitButton isLoading={ isLoading }>Get Started</SubmitButton>
       </form>
     </Form>
