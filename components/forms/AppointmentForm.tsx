@@ -16,6 +16,7 @@ import { FormFieldType } from "./PatientForm"
 import { Doctors } from "@/constants"
 import { SelectItem } from "../ui/select"
 import { Appointment } from "@/types/appwrite.types";
+import { createAppointment } from "@/lib/actions/appointment.actions"
  
  
 export const AppointmentForm = ({
@@ -72,14 +73,19 @@ export const AppointmentForm = ({
                 patient: patientId,
                 primaryPhysician: values.primaryPhysician,
                 schedule: new Date(values.schedule),
-                reason: values.reason,
+                reason: values.reason!,
                 note: values.note,
                 status: status as Status,
             }
+            const appointment = await createAppointment(appointmentData)
+
+            if (appointment) {
+                form.reset();
+                router.push(`/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`)
+            }
         }
-        
-        //const appointment = await createAppointment(appointmentData)
     } catch (error) {
+        console.log(error)
     }
     setIsLoading(false)
   }
