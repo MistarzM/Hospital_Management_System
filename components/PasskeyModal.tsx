@@ -14,20 +14,39 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from "./ui/input-otp";
+import { decryptKey, encryptKey } from "@/lib/utils";
 
 
 export const PasskeyModal = () => {
   const router = useRouter();
-  //const path = usePathname();
+  const path = usePathname();
   const [open, setOpen] = useState(true);
   const [passkey, setPasskey] = useState("");
   const [error, setError] = useState("");
+
+    const encryptedKey = typeof window !== 'undefined' ? window.localStorage.getItem('accessKey') : null;
+
+    useEffect(() => {
+        const accesskey = encryptedKey && decryptKey(encryptedKey);
+        
+        if (path) {
+            if (accesskey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
+                setOpen(false);
+                router.push('/admin')
+            } else {
+                setError('Invalid passkey. Please try again.')
+            }
+        }
+    }, [encryptedKey])
 
     const validatePasskey = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
 
         if (passkey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
+            const encryptedKey = encryptKey(passkey);
+            localStorage.setItem('accessKey', encryptedKey);
 
+            setOpen(false);
         } else {
             setError('Invalid passkey. Please try again.')
         }
