@@ -7,12 +7,12 @@ import { Doctors } from "@/constants";
 import { formatDateTime } from "@/lib/utils";
 import { Appointment } from "@/types/appwrite.types";
 
-import StatusBadge from "../StatusBadge";
 import { AppointmentModal } from "../AppointmentModal";
+import StatusBadge from "../StatusBadge";
 
 export const columns: ColumnDef<Appointment>[] = [
   {
-    header: "ID",
+    header: "#",
     cell: ({ row }) => {
       return <p className="text-14-medium ">{row.index + 1}</p>;
     },
