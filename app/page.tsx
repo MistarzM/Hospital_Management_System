@@ -9,6 +9,14 @@ export default function Home({ searchParams }: SearchParamProps) {
 
   return (
     <div className="flex h-screen max-h-screen">
+      <Image
+        src="/assets/images/onboarding-img.jpg"
+        height={1000}
+        width={1000}
+        alt="patient"
+        className="side-img max-w-[60%]"
+      />
+
       {isAdmin && <PasskeyModal />}
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-[496px]">
@@ -24,19 +32,12 @@ export default function Home({ searchParams }: SearchParamProps) {
             <p className="justify-items-end text-dark-600 xl:text-left">
               © 2025 EHM 
             </p> 
-            <Link href="/?admin=true" className="text-green-500">
+            <Link href="/?admin=true" className="text-dark-500">
               Admin  
             </Link>
           </div>
         </div>
       </section>
-      <Image
-        src="/assets/images/onboarding-img.png"
-        height={1000}
-        width={1000}
-        alt="patient"
-        className="side-img max-w-[50%]"
-      />
     </div>
   )
 }
