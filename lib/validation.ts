@@ -11,6 +11,32 @@ export const UserFormValidation = z.object({
     .refine((phone) => /^\+\d{10,15}$/.test(phone), "Invalid phone number"),
 });
 
+export const TriageFormValidation = z.object({
+  name: z
+    .string()
+    .min(2, "Name must be at least 2 characters")
+    .max(50, "Name must be at most 50 characters"),
+  age: z
+    .number()
+    .min(0, "Age must be a positive number")
+    .max(120, "Age must be at most 120"),
+  conditionDescription: z
+    .string()
+    .max(1000, "Condition description must be at most 1000 characters"),
+  bloodPressure: z
+    .number()
+    .int("Blood pressure must be an integer")
+    .min(0, "Blood pressure must be a positive number"),
+  heartRate: z
+    .number()
+    .int("Heart rate must be an integer")
+    .min(0, "Heart rate must be a positive number"),
+  oxygenSaturation: z
+    .number()
+    .min(0, "Oxygen saturation must be a positive number")
+    .max(100, "Oxygen saturation must be at most 100"),
+});
+
 export const PatientFormValidation = z.object({
   name: z
     .string()
