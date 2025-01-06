@@ -21,13 +21,16 @@ export default function Home({ searchParams }: SearchParamProps) {
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-[496px]">
           <div className="flex flex-col gap-6 xl:flex-row">
-            <Image
-              src="/assets/icons/logo-full.svg"
-              height={1000}
-              width={1000}
-              alt="patient"
-              className="mb-12 h-10 w-fit"
-            />
+            <div className="flex items-center mb-12">
+              <Image
+                src="/assets/images/logo-full.png"
+                height={1200}
+                width={1200}
+                alt="patient"
+                className="h-10 w-fit"
+              />
+              <h1 className="text-blue-500 font-extrabold text-4xl ml-4">EHospital</h1> 
+            </div>
             <Link href="/er">
               <Button className=" shad-primary-btn w-3/5 ml-24">
                 Emergency Room

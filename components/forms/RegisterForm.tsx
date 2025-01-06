@@ -73,7 +73,7 @@ const RegisterForm = ({ user }: { user: User }) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12 flex-1">
         <section className="space-y-4">
             <h1 className="header"> Welcome </h1>
-            <p className="text-dark-400">Let us know more about yourself</p>
+            <p className="text-dark-400">Fill out information about yourself</p>
         </section>
 
         <section className="space-y-6">
@@ -319,22 +319,33 @@ const RegisterForm = ({ user }: { user: User }) => {
             fieldType={FormFieldType.CHECKBOX}
             control={form.control}
             name="treatmentConsent"
-            label="I consent to treatment"
+            label="General Consent for Treatment"
         />
-
-        <CustomFormField
-            fieldType={FormFieldType.CHECKBOX}
-            control={form.control}
-            name="disclosureConsent"
-            label="I consent to disclosure of information"
-        />
+        <p className="copyright">
+            I hereby give my consent to receive medical treatment and services from [Hospital Name] as recommended by my healthcare providers.
+        </p> 
 
         <CustomFormField
             fieldType={FormFieldType.CHECKBOX}
             control={form.control}
             name="privacyConsent"
-            label="I consent to privacy policy"
+            label="Consent for Use of Personal Data"
         />
+        <p className="copyright">
+            I hereby give my consent to receive medical treatment and services from [Hospital Name] as recommended by my healthcare providers.
+        </p> 
+
+        <CustomFormField
+            fieldType={FormFieldType.CHECKBOX}
+            control={form.control}
+            name="messageConsent"
+            label=" Consent for Electronic Communication"
+        />
+        <p className="copyright">
+            Consent for Electronic Communication
+            I consent to receiving appointment reminders and important healthcare communications via phone, text, or email.
+        </p>
+
         </section>
         <SubmitButton isLoading={ isLoading }>Get Started</SubmitButton>
       </form>
