@@ -34,3 +34,13 @@ export interface Appointment extends Models.Document {
   userId: string;
   cancellationReason: string | null;
 }
+
+export interface Triage extends Models.Document {
+  id: number;
+  name: string;
+  age: string;
+  bloodPressure: string;
+  heartRate: string;
+  oxygenSaturation: string;
+  description: string;
+}

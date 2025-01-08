@@ -51,7 +51,7 @@ const PatientForm = () => {
         description,
       };
       await axios.post('http://localhost:8080/api/triage', data);
-      router.push('/queue');
+      router.push('/er/queue');
     } catch (error) {
         console.log(error)
     }
