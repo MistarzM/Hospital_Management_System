@@ -16,11 +16,11 @@ export const TriageFormValidation = z.object({
     .string()
     .min(2, "Name must be at least 2 characters")
     .max(50, "Name must be at most 50 characters"),
-  birthDate: z.date(),
+  date: z.date(),
   bloodPressure: z.string(),
   heartRate: z.string(),
   oxygenSaturation: z.string(),
-  conditionDescription: z
+  description: z
     .string()
     .max(1000, "Condition description must be at most 1000 characters"),
 });

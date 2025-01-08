@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation"
 import { createUser } from "@/lib/actions/patient.actions"
 import { FormFieldType } from "./PatientForm"
 import { RadioGroup } from "@radix-ui/react-radio-group"
+import axios from "axios"
  
 const PatientForm = () => {
     const router = useRouter();
@@ -22,26 +23,35 @@ const PatientForm = () => {
         resolver: zodResolver(TriageFormValidation),
         defaultValues: {
           name: "",
-          birthDate: new Date(Date.now()),
+          date: new Date(Date.now()),
           bloodPressure: "0",
           heartRate: "0",
           oxygenSaturation: "0",
-          conditionDescription: "",
+          description: "",
         },
       });
     
       async function onSubmit({
         name,
-        birthDate,
+        date,
         bloodPressure,
         heartRate,
         oxygenSaturation,
-        conditionDescription,
+        description,
       }: z.infer<typeof TriageFormValidation>) {
         setIsLoading(true);
 
     try {
-        router.push(`/er/table`)
+      const data = {
+        name,
+        date,
+        bloodPressure,
+        heartRate,
+        oxygenSaturation,
+        description,
+      };
+      await axios.post('http://localhost:8080/api/triage', data);
+      router.push('/queue');
     } catch (error) {
         console.log(error)
     }
@@ -70,7 +80,7 @@ const PatientForm = () => {
             <CustomFormField
                 fieldType={FormFieldType.DATE_PICKER}
                 control={form.control}
-                name="birthDate"
+                name="date"
                 label="Date of birth"
             />
 
@@ -104,7 +114,7 @@ const PatientForm = () => {
         <CustomFormField
             fieldType={FormFieldType.TEXTAREA}
             control={form.control}
-            name="conditionDescription"
+            name="description"
             label="Condition Description"
             placeholder="ChestPain"
         />
