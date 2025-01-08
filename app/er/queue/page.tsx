@@ -67,7 +67,7 @@ interface Triage {
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
       <header className="admin-header">
-        <Link href="/" className="cursor-pointer">
+        <Link href="/er" className="cursor-pointer">
           <Image
             src="/assets/images/logo-full.png"
             height={32}
