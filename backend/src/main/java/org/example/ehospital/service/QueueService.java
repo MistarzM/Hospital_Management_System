@@ -11,5 +11,6 @@ import java.util.stream.Collectors;
 @Service
 public interface QueueService {
     List<QueueDto> getPriorityQueue();
+    QueueDto updateQueue(Integer id, QueueDto updatedQueue);
 }
 

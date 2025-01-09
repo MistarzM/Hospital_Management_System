@@ -15,7 +15,7 @@ public class Queue {
 
     private int priorityPoints;
     private String priorityLevel; // HIGH, MEDIUM, LOW
-    private String status; // WAITING, IN_PROGRESS, COMPLETED
+    private String status; // WAITING, IN_PROGRESS, FINSHED
 
     public Queue() {
     }

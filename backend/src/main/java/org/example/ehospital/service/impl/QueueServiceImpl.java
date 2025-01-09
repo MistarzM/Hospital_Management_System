@@ -32,4 +32,15 @@ public class QueueServiceImpl implements QueueService {
                 .map(QueueMapper::mapToQueueDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public QueueDto updateQueue(Integer id, QueueDto updatedQueue) {
+        Queue queue = queueRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Queue entry not found"));
+
+        queue.setStatus(updatedQueue.getStatus());
+        Queue updatedQueueEntity = queueRepo.save(queue);
+
+        return QueueMapper.mapToQueueDto(updatedQueueEntity);
+    }
 }

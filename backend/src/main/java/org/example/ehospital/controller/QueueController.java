@@ -26,4 +26,10 @@ public class QueueController {
         List<QueueDto> priorityQueue = queueService.getPriorityQueue();
         return new ResponseEntity<>(priorityQueue, HttpStatus.OK);
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<QueueDto> updateQueue(@PathVariable("id") Integer id, @RequestBody QueueDto updatedQueue) {
+        QueueDto queueDto = queueService.updateQueue(id, updatedQueue);
+        return new ResponseEntity<>(queueDto, HttpStatus.OK);
+    }
 }
