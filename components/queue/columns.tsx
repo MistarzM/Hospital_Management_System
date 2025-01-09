@@ -9,7 +9,7 @@ export const columns: ColumnDef<Queue>[] = [
   {
     header: "#",
     cell: ({ row }) => {
-      return <p className="text-14-medium ">{row.id + 1}</p>
+      return <p className="text-14-medium ">{row.id}</p>
     },
   },
   {
@@ -67,9 +67,6 @@ export const columns: ColumnDef<Queue>[] = [
           <QueueResultModal
             id = {queue.id}
             triageId = {queue.triageId} 
-            priorityPoints = {queue.priorityPoints}
-            priorityLevel = {queue.priorityLevel}
-            status = {queue.status}
           />
         </div>
       );

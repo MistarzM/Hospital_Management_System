@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,21 +16,30 @@ import { Queue } from "@/types/appwrite.types";
 import { AppointmentForm } from "./forms/AppointmentForm";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { fetchVisitInfo } from "@/lib/actions/triage.actions";
 
 export const QueueResultModal = ({
   id,
   triageId,
-  priorityPoints,
-  priorityLevel,
-  status
 }: {
   id: number;
   triageId: number;
-  priorityPoints: number;
-  priorityLevel: string;
-  status: string;
 }) => {
-  const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [info, setInfo] = useState<{ hospitalizationSteps: string; prescription: string } | null>(null);
+  
+    useEffect(() => {
+      const fetchInfo = async () => {
+        try {
+          const data = await fetchVisitInfo(triageId);
+          setInfo(data);
+        } catch (error) {
+          console.error('Error fetching info:', error);
+        }
+      };
+  
+      fetchInfo();
+    }, [triageId]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -39,14 +48,23 @@ export const QueueResultModal = ({
           variant="ghost"
           className={"text-green-500"}
         >
-          Result
+          Info
         </Button>
       </DialogTrigger>
-      <DialogContent className="shad-dialog sm:max-w-md">
+      <DialogContent className="shad-dialog sm:max-w-3xl">
         <DialogHeader className="mb-4 space-y-3">
-          <DialogTitle className="capitalize">Result</DialogTitle>
+          <DialogTitle className="text-32-bold capitalize">Result</DialogTitle>
           <DialogDescription>
-            Its Result
+            {info ? (
+              <>
+                <h5 className="text-18-bold text-black">Hospitalization Steps:</h5>
+                <div dangerouslySetInnerHTML={{ __html: info.hospitalizationSteps }} />
+                <h5 className="text-18-bold text-black">Prescription:</h5>
+                <div>{info.prescription}</div>
+              </>
+            ) : (
+              'Loading...'
+            )}
           </DialogDescription>
         </DialogHeader>
 
