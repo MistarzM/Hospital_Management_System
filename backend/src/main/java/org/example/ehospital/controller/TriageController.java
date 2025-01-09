@@ -49,4 +49,11 @@ public class TriageController {
         triageService.deleteTriage(id);
         return ResponseEntity.ok("Triage deleted successfully");
     }
+
+    @GetMapping("/queue")
+    public ResponseEntity<List<TriageDto>> getPriorityQueue() {
+        List<TriageDto> priorityQueue = triageService.getPriorityQueue();
+        return new ResponseEntity<>(priorityQueue, HttpStatus.OK);
+    }
+
 }

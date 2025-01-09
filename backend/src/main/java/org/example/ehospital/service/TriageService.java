@@ -11,4 +11,6 @@ public interface TriageService {
     List<TriageDto> getAllTriages();
     TriageDto updateTriage(Integer triageId, TriageDto triageDto);
     void deleteTriage(Integer triageId);
+
+    List<TriageDto> getPriorityQueue();
 }
