@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { listQueue } from "@/lib/actions/triage.actions";
 import type { Queue } from "@/types/appwrite.types";
+import { columns } from "@/components/queue/columns";
 
 const Queue = () => {
     const [que, setQueue] = useState<Queue[]>([]);
@@ -21,28 +22,6 @@ const Queue = () => {
         });
     }, []);
   
-    const columns: ColumnDef<Queue, any>[] = [
-      {
-        accessorKey: 'id',
-        header: 'id',
-      },
-      {
-        accessorKey: 'triage_id',
-        header: 'Traige ID',
-      },
-      {
-        accessorKey: 'priority_level',
-        header: 'Priority Level',
-      },
-      {
-        accessorKey: 'priority_points',
-        header: 'Priority Points',
-      },
-      {
-        accessorKey: 'status',
-        header: 'Status',
-      },
-    ];
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
       <header className="admin-header">

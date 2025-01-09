@@ -2,15 +2,15 @@ package org.example.ehospital.dto;
 
 public class QueueDto {
     private int id;
-    private String patientName;
+    private int triageId;
     private int priorityPoints;
     private String priorityLevel;
     private String status;
 
     // Konstruktor
-    public QueueDto(int id, String patientName, int priorityPoints, String priorityLevel, String status) {
+    public QueueDto(int id, int triageId, int priorityPoints, String priorityLevel, String status) {
         this.id = id;
-        this.patientName = patientName;
+        this.triageId = triageId;
         this.priorityPoints = priorityPoints;
         this.priorityLevel = priorityLevel;
         this.status = status;
@@ -27,12 +27,12 @@ public class QueueDto {
         this.id = id;
     }
 
-    public String getPatientName() {
-        return patientName;
+    public int getTriageId() {
+        return this.triageId;
     }
 
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
+    public void setTriageId(int triageId) {
+        this.triageId = triageId;
     }
 
     public int getPriorityPoints() {

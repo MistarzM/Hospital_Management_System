@@ -7,7 +7,7 @@ public class QueueMapper {
     public static QueueDto mapToQueueDto(Queue queue) {
         return new QueueDto(
                 queue.getId(),
-                queue.getTriage().getName(), // Pobiera nazwę pacjenta z tabeli `Triage`
+                queue.getTriage().getId(),
                 queue.getPriorityPoints(),
                 queue.getPriorityLevel(),
                 queue.getStatus()

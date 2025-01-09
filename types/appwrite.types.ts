@@ -47,8 +47,8 @@ export interface Triage extends Models.Document {
 
 export interface Queue extends Models.Document {
   id: number;
-  triage_id: number;
-  priority_level: string;
-  priority_points: string;
+  triageId: number;
+  priorityLevel: string;
+  priorityPoints: number;
   status: string;
 }
