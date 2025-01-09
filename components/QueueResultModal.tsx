@@ -63,7 +63,7 @@ export const QueueResultModal = ({
                 <div>{info.prescription}</div>
               </>
             ) : (
-              'Loading...'
+              <div>'Loading...'</div>
             )}
           </DialogDescription>
         </DialogHeader>
