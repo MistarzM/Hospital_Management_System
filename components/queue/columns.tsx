@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import {  Queue } from "@/types/appwrite.types";
 import StatusBadge from "../StatusBadge";
 import { QueueResultModal } from "../QueueResultModal";
+import { QueueFinishModal } from "../QueueFinishModal";
 
 export const columns: ColumnDef<Queue>[] = [
   {
@@ -67,6 +68,16 @@ export const columns: ColumnDef<Queue>[] = [
           <QueueResultModal
             id = {queue.id}
             triageId = {queue.triageId} 
+            priorityLevel = {queue.priorityLevel}
+            priorityPoints = {queue.priorityPoints}
+            status = {queue.status}
+          />
+          <QueueFinishModal
+            id = {queue.id}
+            triageId = {queue.triageId} 
+            priorityLevel = {queue.priorityLevel}
+            priorityPoints = {queue.priorityPoints}
+            status = {queue.status}
           />
         </div>
       );
