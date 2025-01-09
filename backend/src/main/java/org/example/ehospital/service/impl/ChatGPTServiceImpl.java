@@ -44,18 +44,29 @@ public class ChatGPTServiceImpl implements ChatGPTService {
                     .get("message"))
                     .get("content");
 
-            // Split the response into hospitalization steps and prescription
-            String[] parts = content.split("\n\nPRESCRIPTION:");
-            String hospitalizationSteps = parts[0].trim();
-            String prescription = parts.length > 1 ? parts[1].trim() : "";
+            // Extract sections using keywords
+            String hospitalizationPlan = extractSection(content, "HOSPITALIZATION_PLAN:", "PRESCRIPTION:");
+            String prescription = extractSection(content, "PRESCRIPTION:", null);
 
             return Map.of(
-                    "hospitalizationSteps", hospitalizationSteps,
+                    "hospitalizationSteps", hospitalizationPlan,
                     "prescription", prescription
             );
 
         } catch (WebClientResponseException e) {
             throw new RuntimeException("Error calling ChatGPT API: " + e.getResponseBodyAsString(), e);
         }
+    }
+
+    // Utility method to extract sections based on keywords
+    private String extractSection(String content, String startKeyword, String endKeyword) {
+        int startIndex = content.indexOf(startKeyword);
+        int endIndex = endKeyword != null ? content.indexOf(endKeyword) : content.length();
+
+        if (startIndex == -1) {
+            return ""; // Jeśli nie znaleziono sekcji, zwróć pusty ciąg
+        }
+
+        return content.substring(startIndex + startKeyword.length(), endIndex).trim();
     }
 }

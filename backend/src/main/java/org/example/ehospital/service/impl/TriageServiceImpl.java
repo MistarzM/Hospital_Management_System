@@ -55,10 +55,11 @@ public class TriageServiceImpl implements TriageService {
                         "- Oxygen Saturation: %d%%\n" +
                         "- Description: %s\n\n" +
                         "Please provide the following:\n" +
-                        "1. A detailed hospitalization plan with clear, actionable steps.'\n" +
-                        "2. A professional prescription, including drug names, doses, and instructions for use. Start the section with the keyword 'PRESCRIPTION:'\n" +
-                        "Separate the sections clearly with their respective keywords.\n\n" +
-                        "Format the response as follows:\n" +
+                        "1. A detailed hospitalization plan with clear, actionable steps. Start this section with the keyword 'HOSPITALIZATION_PLAN:'.\n" +
+                        "2. A professional prescription, including drug names, doses, and instructions for use. Start this section with the keyword 'PRESCRIPTION:'.\n" +
+                        "Separate the sections clearly using these keywords.\n\n" +
+                        "Response format:\n" +
+                        "HOSPITALIZATION_PLAN:\n" +
                         "1. Step one...\n" +
                         "2. Step two...\n\n" +
                         "PRESCRIPTION:\n" +
@@ -70,6 +71,7 @@ public class TriageServiceImpl implements TriageService {
                 triageDto.getOxygenSaturation(),
                 triageDto.getDescription()
         );
+
 
         // Wywołanie ChatGPT API
         Map<String, String> suggestions = chatGPTService.generateSuggestions(prompt);
