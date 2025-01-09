@@ -1,16 +1,10 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import Image from "next/image";
-
-import { Doctors } from "@/constants";
-import { formatDateTime } from "@/lib/utils";
-import {  Triage } from "@/types/appwrite.types";
-
-import { AppointmentModal } from "../AppointmentModal";
+import {  Queue } from "@/types/appwrite.types";
 import StatusBadge from "../StatusBadge";
 
-export const columns: ColumnDef<Triage>[] = [
+export const columns: ColumnDef<Queue>[] = [
   {
     header: "#",
     cell: ({ row }) => {
@@ -18,68 +12,45 @@ export const columns: ColumnDef<Triage>[] = [
     },
   },
   {
-    accessorKey: "name",
-    header: "Patient",
+    accessorKey: "triage_id",
+    header: "Triage ID",
     cell: ({ row }) => {
-      const triage = row.original;
-      return <p className="text-14-medium ">{triage.name}</p>;
+      const queue = row.original;
+      return <p className="text-14-medium ">{queue.triage_id}</p>;
+    },
+  },
+  {
+    accessorKey: "priority_level",
+    header: "Priority points",
+    cell: ({ row }) => {
+      const queue = row.original;
+      return (
+        <p className="text-14-regular min-w-[100px]">
+          eturn <p className="text-14-medium ">{queue.priority_level}</p>;
+        </p>
+      );
+    },
+  },
+  {
+    accessorKey: "priority_points",
+    header: "Priority points",
+    cell: ({ row }) => {
+      const queue = row.original;
+      return (
+        <p className="text-14-regular min-w-[100px]">
+          eturn <p className="text-14-medium ">{queue.priority_points}</p>;
+        </p>
+      );
     },
   },
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const triage = row.original;
-      return (
-        <div className="min-w-[115px]">
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "date",
-    header: "Date",
-    cell: ({ row }) => {
-      const triage = row.original;
+      const queue = row.original;
       return (
         <p className="text-14-regular min-w-[100px]">
-          {formatDateTime(triage.date).dateTime}
-        </p>
-      );
-    },
-  },
-  {
-    accessorKey: "heart_rate",
-    header: "Heart Rate",
-    cell: ({ row }) => {
-      const triage = row.original;
-      return (
-        <p className="text-14-regular min-w-[100px]">
-          eturn <p className="text-14-medium ">{triage.heartRate}</p>;
-        </p>
-      );
-    },
-  },
-  {
-    accessorKey: "oxygen_saturation",
-    header: "Oxygen Saturation",
-    cell: ({ row }) => {
-      const triage = row.original;
-      return (
-        <p className="text-14-regular min-w-[100px]">
-          eturn <p className="text-14-medium ">{triage.oxygenSaturation}</p>;
-        </p>
-      );
-    },
-  },
-  {
-    accessorKey: "blood_pressure",
-    header: "Blood Pressure",
-    cell: ({ row }) => {
-      const triage = row.original;
-      return (
-        <p className="text-14-regular min-w-[100px]">
-          eturn <p className="text-14-medium ">{triage.bloodPressure}</p>;
+          eturn <p className="text-14-medium ">{queue.status}</p>;
         </p>
       );
     },

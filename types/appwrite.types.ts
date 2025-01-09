@@ -44,3 +44,11 @@ export interface Triage extends Models.Document {
   oxygenSaturation: string;
   description: string;
 }
+
+export interface Queue extends Models.Document {
+  id: number;
+  triage_id: number;
+  priority_level: string;
+  priority_points: string;
+  status: string;
+}

@@ -1,67 +1,46 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-
-import { columns } from "@/components/queue/columns";
 import { DataTable } from "@/components/queue/DataTable";
-import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
 import StatCard from "@/components/StatCard";
 import { useEffect, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import axios from 'axios';
-import { listTriages } from "@/lib/actions/triage.actions";
+import { listQueue } from "@/lib/actions/triage.actions";
+import type { Queue } from "@/types/appwrite.types";
 
-interface Triage {
-    id: number;
-    name: string;
-    age: string;
-    bloodPressure: string;
-    heartRate: string;
-    oxygenSaturation: string;
-    description: string;
-  }
-  
-  const Queue = () => {
-    const [triages, setTriages] = useState<Triage[]>([]);
+const Queue = () => {
+    const [que, setQueue] = useState<Queue[]>([]);
   
     useEffect(() => {
-      listTriages()
+      listQueue()
         .then((data) => {
-          setTriages(data);
+          setQueue(data);
         })
         .catch((error) => {
           console.error(error);
         });
     }, []);
   
-    const columns: ColumnDef<Triage, any>[] = [
+    const columns: ColumnDef<Queue, any>[] = [
       {
         accessorKey: 'id',
-        header: 'Id',
+        header: 'id',
       },
       {
-        accessorKey: 'name',
-        header: 'Patient Name',
+        accessorKey: 'triage_id',
+        header: 'Traige ID',
       },
       {
-        accessorKey: 'age',
-        header: 'Age',
+        accessorKey: 'priority_level',
+        header: 'Priority Level',
       },
       {
-        accessorKey: 'bloodPressure',
-        header: 'Blood Pressure',
+        accessorKey: 'priority_points',
+        header: 'Priority Points',
       },
       {
-        accessorKey: 'heartRate',
-        header: 'Heart Rate',
-      },
-      {
-        accessorKey: 'oxygenSaturation',
-        header: 'Oxygen Saturation',
-      },
-      {
-        accessorKey: 'description',
-        header: 'Description',
+        accessorKey: 'status',
+        header: 'Status',
       },
     ];
   return (
@@ -81,7 +60,7 @@ interface Triage {
       </header>
 
       <main className="admin-main">
-        <DataTable columns={columns} data={triages} />
+        <DataTable columns={columns} data={que} />
       </main>
     </div>
   );

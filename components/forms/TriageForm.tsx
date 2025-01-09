@@ -14,6 +14,7 @@ import { createUser } from "@/lib/actions/patient.actions"
 import { FormFieldType } from "./PatientForm"
 import { RadioGroup } from "@radix-ui/react-radio-group"
 import axios from "axios"
+import { submitTriageData } from "@/lib/actions/triage.actions"
  
 const PatientForm = () => {
     const router = useRouter();
@@ -50,7 +51,7 @@ const PatientForm = () => {
         oxygenSaturation,
         description,
       };
-      await axios.post('http://localhost:8080/api/triage', data);
+      await submitTriageData(data);
       router.push('/er/queue');
     } catch (error) {
         console.log(error)
