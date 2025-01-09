@@ -13,7 +13,12 @@ public class Visit {
     @JoinColumn(name = "triage_id", nullable = false)
     private Triage triage;
 
+    @Lob
+    @Column(name = "hospitalization_steps", nullable = false, columnDefinition = "TEXT")
     private String hospitalizationSteps;
+
+    @Lob
+    @Column(name = "prescription", nullable = false, columnDefinition = "TEXT")
     private String prescription;
 
     public Visit() {

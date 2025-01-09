@@ -3,40 +3,86 @@ package org.example.ehospital.service.impl;
 import org.example.ehospital.dto.TriageDto;
 import org.example.ehospital.entity.Queue;
 import org.example.ehospital.entity.Triage;
+import org.example.ehospital.entity.Visit;
 import org.example.ehospital.mapper.TriageMapper;
 import org.example.ehospital.repo.QueueRepo;
 import org.example.ehospital.repo.TriageRepo;
+import org.example.ehospital.repo.VisitRepo;
+import org.example.ehospital.service.ChatGPTService;
 import org.example.ehospital.service.TriageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class TriageServiceImpl implements TriageService {
     private final TriageRepo triageRepo;
     private final QueueRepo queueRepo;
+    private final VisitRepo visitRepo;
+    private final ChatGPTService chatGPTService;
 
     @Autowired
-    public TriageServiceImpl(TriageRepo triageRepo, QueueRepo queueRepo) {
+    public TriageServiceImpl(TriageRepo triageRepo, QueueRepo queueRepo, VisitRepo visitRepo, ChatGPTService chatGPTService) {
         this.triageRepo = triageRepo;
         this.queueRepo = queueRepo;
+        this.visitRepo = visitRepo;
+        this.chatGPTService = chatGPTService;
     }
 
     @Override
     public TriageDto createTriage(TriageDto triageDto) {
+        // Mapowanie danych do encji `Triage`
         Triage triage = TriageMapper.mapToTriage(triageDto);
         Triage savedTriage = triageRepo.save(triage);
 
+        // Obliczanie punktów priorytetowych i poziomu priorytetu
         int priorityPoints = calculatePriorityPoints(triageDto);
         String priorityLevel = determinePriorityLevel(priorityPoints);
 
+        // Tworzenie wpisu w tabeli `queue`
         Queue queue = new Queue(savedTriage, priorityPoints, priorityLevel, "WAITING");
         queueRepo.save(queue);
 
+        // Przygotowanie prompta dla ChatGPT
+        String prompt = String.format(
+                "Based on the following patient data:\n" +
+                        "- Name: %s\n" +
+                        "- Blood Pressure: %d mmHg\n" +
+                        "- Heart Rate: %d bpm\n" +
+                        "- Oxygen Saturation: %d%%\n" +
+                        "- Description: %s\n\n" +
+                        "Please provide the following:\n" +
+                        "1. A detailed hospitalization plan with clear, actionable steps.'\n" +
+                        "2. A professional prescription, including drug names, doses, and instructions for use. Start the section with the keyword 'PRESCRIPTION:'\n" +
+                        "Separate the sections clearly with their respective keywords.\n\n" +
+                        "Format the response as follows:\n" +
+                        "1. Step one...\n" +
+                        "2. Step two...\n\n" +
+                        "PRESCRIPTION:\n" +
+                        "- Drug Name (Dose, Frequency): Additional instructions\n" +
+                        "- Drug Name (Dose, Frequency): Additional instructions\n",
+                triageDto.getName(),
+                triageDto.getBloodPressure(),
+                triageDto.getHeartRate(),
+                triageDto.getOxygenSaturation(),
+                triageDto.getDescription()
+        );
+
+        // Wywołanie ChatGPT API
+        Map<String, String> suggestions = chatGPTService.generateSuggestions(prompt);
+
+        Visit visit = new Visit();
+        visit.setTriage(savedTriage);
+        visit.setHospitalizationSteps(suggestions.get("hospitalizationSteps"));
+        visit.setPrescription(suggestions.get("prescription"));
+        visitRepo.save(visit);
+
         return TriageMapper.mapToTriageDto(savedTriage);
     }
+
 
     @Override
     public TriageDto getTriageById(Integer id) {
@@ -114,7 +160,5 @@ public class TriageServiceImpl implements TriageService {
                 .map(queue -> TriageMapper.mapToTriageDto(queue.getTriage()))
                 .collect(Collectors.toList());
     }
-
-
 
 }
