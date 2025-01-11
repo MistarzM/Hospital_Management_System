@@ -25,6 +25,11 @@ export const TriageFormValidation = z.object({
     .max(1000, "Condition description must be at most 1000 characters"),
 });
 
+export const VisitFormValidation = z.object({
+  hospitalizationSteps: z.string(),
+  prescription: z.string(),
+});
+
 export const PatientFormValidation = z.object({
   name: z
     .string()

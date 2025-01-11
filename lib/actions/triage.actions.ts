@@ -35,6 +35,20 @@ export const fetchVisitInfo = async (triageId: number) => {
   }
 };
 
+export const updateVisitStatus = async (data: {
+  id: number;
+  hospitalizationSteps: string;
+  prescription: string;
+  triageId: number;
+}) => {
+  try {
+    await axios.put(`http://localhost:8080/api/visit/${data.id}`, data);
+  } catch (error) {
+    console.error('Error updating status:', error);
+    throw error;
+  }
+};
+
 export const updateTriageStatus = async (data: {
   id: number;
   triageId: number;

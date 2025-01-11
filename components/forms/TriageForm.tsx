@@ -16,7 +16,7 @@ import { RadioGroup } from "@radix-ui/react-radio-group"
 import axios from "axios"
 import { submitTriageData } from "@/lib/actions/triage.actions"
  
-const PatientForm = () => {
+const TriageForm = () => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false)
 
@@ -125,4 +125,4 @@ const PatientForm = () => {
   )
 }
 
-export default PatientForm
+export default TriageForm 

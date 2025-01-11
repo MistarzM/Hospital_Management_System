@@ -74,6 +74,17 @@ const RenderInput = ({ field, props }: { field: any; props: CustomProps }) => {
           />
         </FormControl>
       )
+    case FormFieldType.TEXTBIGAREA:
+      return (
+        <FormControl>
+          <Textarea
+            placeholder={placeholder}
+            {...field}
+            className="shad-textArea h-48"
+            disabled={props.disabled}
+          />
+        </FormControl>
+      )
     case FormFieldType.PHONE_INPUT:
       return (
         <FormControl>

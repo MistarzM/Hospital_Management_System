@@ -18,6 +18,9 @@ import { AppointmentForm } from "./forms/AppointmentForm";
 import "react-datepicker/dist/react-datepicker.css";
 import { fetchVisitInfo, updateTriageStatus } from "@/lib/actions/triage.actions";
 import { useRouter } from "next/navigation";
+import CustomFormField from "./CustomFormField";
+import { FormFieldType } from "./forms/PatientForm";
+import VisitForm from "./forms/VisitForm";
 
 export const QueueResultModal = ({
   id,
@@ -33,7 +36,7 @@ export const QueueResultModal = ({
   status: string; 
 }) => {
     const [open, setOpen] = useState(false);
-    const [info, setInfo] = useState<{ hospitalizationSteps: string; prescription: string } | null>(null);
+    const [info, setInfo] = useState<{ id: number; hospitalizationSteps: string; prescription: string; triageId: number; } | null>(null);
     const router = useRouter();
     
     useEffect(() => {
@@ -86,12 +89,12 @@ export const QueueResultModal = ({
           <DialogTitle className="text-32-bold capitalize">Result</DialogTitle>
           <DialogDescription>
             {info ? (
-              <>
-                <h5 className="text-18-bold text-black">Hospitalization Steps:</h5>
-                <div dangerouslySetInnerHTML={{ __html: info.hospitalizationSteps }} />
-                <h5 className="text-18-bold text-black">Prescription:</h5>
-                <div>{info.prescription}</div>
-              </>
+                <VisitForm
+                  id={info.id}
+                  hospitalizationSteps={info.hospitalizationSteps}
+                  prescription={info.prescription}
+                  triageId={info.triageId}
+                />    
             ) : (
               <div>'Loading...'</div>
             )}
