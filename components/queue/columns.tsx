@@ -8,9 +8,9 @@ import { QueueFinishModal } from "../QueueFinishModal";
 
 export const columns: ColumnDef<Queue>[] = [
   {
-    header: "#",
+    header: "Queue",
     cell: ({ row }) => {
-      return <p className="text-14-medium ">{row.id}</p>
+      return <p className="text-14-medium text-dark-600">{row.index + 1}</p>
     },
   },
   {

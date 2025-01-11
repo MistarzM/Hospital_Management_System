@@ -1,4 +1,3 @@
-import PatientForm from "@/components/forms/PatientForm"
 import TriageForm from "@/components/forms/TriageForm";
 import { PasskeyModal } from "@/components/PasskeyModal";
 import { Button } from "@/components/ui/button"

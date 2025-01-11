@@ -2,9 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { DataTable } from "@/components/queue/DataTable";
-import StatCard from "@/components/StatCard";
 import { useEffect, useState } from "react";
-import { ColumnDef } from "@tanstack/react-table";
 import { listQueue } from "@/lib/actions/triage.actions";
 import type { Queue } from "@/types/appwrite.types";
 import { columns } from "@/components/queue/columns";

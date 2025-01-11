@@ -11,15 +11,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Queue } from "@/types/appwrite.types";
-
-import { AppointmentForm } from "./forms/AppointmentForm";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { fetchVisitInfo, updateTriageStatus } from "@/lib/actions/triage.actions";
 import { useRouter } from "next/navigation";
-import CustomFormField from "./CustomFormField";
-import { FormFieldType } from "./forms/PatientForm";
 import VisitForm from "./forms/VisitForm";
 
 export const QueueResultModal = ({
