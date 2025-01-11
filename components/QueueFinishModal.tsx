@@ -19,7 +19,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { fetchVisitInfo, updateTriageStatus } from "@/lib/actions/triage.actions";
 import { useRouter } from "next/navigation";
 
-export const QueueResultModal = ({
+export const QueueFinishModal = ({
   id,
   triageId,
   priorityLevel,
@@ -35,7 +35,7 @@ export const QueueResultModal = ({
     const [open, setOpen] = useState(false);
     const [info, setInfo] = useState<{ hospitalizationSteps: string; prescription: string } | null>(null);
     const router = useRouter();
-    
+  
     useEffect(() => {
       const fetchInfo = async () => {
         try {
@@ -58,7 +58,7 @@ export const QueueResultModal = ({
             triageId,
             priorityLevel,
             priorityPoints,
-            status: "IN_PROGRESS"
+            status: "FINISH"
           };
           try {
             await updateTriageStatus(data);
@@ -66,8 +66,8 @@ export const QueueResultModal = ({
             console.error('Error updating status:', error);
           }
         } else {
-          router.refresh();
-          window.location.reload();
+            router.refresh();
+            window.location.reload();
         }
       };
 
@@ -76,9 +76,9 @@ export const QueueResultModal = ({
       <DialogTrigger asChild>
         <Button
           variant="ghost"
-          className={"text-green-500"}
+          className={"text-red-500"}
         >
-          Info
+          finish
         </Button>
       </DialogTrigger>
       <DialogContent className="shad-dialog sm:max-w-3xl">
@@ -87,10 +87,7 @@ export const QueueResultModal = ({
           <DialogDescription>
             {info ? (
               <>
-                <h5 className="text-18-bold text-black">Hospitalization Steps:</h5>
-                <div dangerouslySetInnerHTML={{ __html: info.hospitalizationSteps }} />
-                <h5 className="text-18-bold text-black">Prescription:</h5>
-                <div>{info.prescription}</div>
+                <h5 className="text-18-bold text-black">FINISHED</h5>
               </>
             ) : (
               <div>'Loading...'</div>
