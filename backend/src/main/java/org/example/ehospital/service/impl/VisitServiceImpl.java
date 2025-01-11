@@ -21,4 +21,16 @@ public class VisitServiceImpl implements VisitService {
                 .orElseThrow(() -> new RuntimeException("Visit not found"));
         return VisitMapper.mapToVisitDto(visit);
     }
+
+    @Override
+    public VisitDto updateVisit(Integer triageId, VisitDto updatedVisit) {
+        Visit visit = visitRepo.findByTriageId(triageId)
+                .orElseThrow(() -> new RuntimeException("Visit not found"));
+
+        visit.setHospitalizationSteps(updatedVisit.getHospitalizationSteps());
+        visit.setPrescription(updatedVisit.getPrescription());
+
+        Visit updatedVisitEntity = visitRepo.save(visit);
+        return VisitMapper.mapToVisitDto(updatedVisitEntity);
+    }
 }

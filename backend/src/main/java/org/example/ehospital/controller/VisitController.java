@@ -23,4 +23,10 @@ public class VisitController {
         VisitDto visitDto = visitService.getVisitByTriageId(triageId);
         return new ResponseEntity<>(visitDto, HttpStatus.OK);
     }
+
+    @PutMapping("/{triageId}")
+    public ResponseEntity<VisitDto> updateVisit(@PathVariable("triageId") Integer triageId, @RequestBody VisitDto updatedVisit) {
+        VisitDto visitDto = visitService.updateVisit(triageId, updatedVisit);
+        return new ResponseEntity<>(visitDto, HttpStatus.OK);
+    }
 }
