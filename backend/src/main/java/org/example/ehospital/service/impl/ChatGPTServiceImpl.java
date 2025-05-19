@@ -64,7 +64,7 @@ public class ChatGPTServiceImpl implements ChatGPTService {
         int endIndex = endKeyword != null ? content.indexOf(endKeyword) : content.length();
 
         if (startIndex == -1) {
-            return ""; // Jeśli nie znaleziono sekcji, zwróć pusty ciąg
+            return "";
         }
 
         return content.substring(startIndex + startKeyword.length(), endIndex).trim();
